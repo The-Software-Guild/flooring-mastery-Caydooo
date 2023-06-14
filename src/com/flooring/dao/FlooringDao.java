@@ -203,11 +203,9 @@ public class FlooringDao implements IDao {
 	@Override
 	public void deleteOrder(Order order, String orderDate) {
 		List<Order> orders = retrieveOrders(orderDate);
-		for(int i = 0; i < orders.size(); i++) {
-			if(orders.get(i).getOrderNumber() == order.getOrderNumber()) {
-				orders.remove(i);
-			}
-		}
+
+		orders.removeIf((p) -> p.getOrderNumber() == order.getOrderNumber());
+		
 		persistOrders(orderDate, orders);
 	}
 
